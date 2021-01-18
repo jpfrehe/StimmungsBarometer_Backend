@@ -1,0 +1,1 @@
+# StimmungsBarometer_Backend
