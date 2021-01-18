@@ -1,20 +1,22 @@
 package de.fiduciagad.backend.rating;
 
 
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity(name = "Rating")
 @Table
 public class Rating {
     @JsonIgnore
     @Id
-    @SequenceGenerator(name = "rating_sequence",sequenceName = "rating_sequence", allocationSize = 1)
+    @SequenceGenerator(name = "rating_sequence", sequenceName = "rating_sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "rating_sequence")
     private Long id_rating;
 
+
+    private LocalDate dateOfRating = LocalDate.now();
     private String mitgliedName;
     private String teamName;
     private int stimmung;
@@ -38,10 +40,19 @@ public class Rating {
         this.teamName = teamName;
         this.stimmung = stimmung;
         this.coffeeCount = coffeeCount;
+
     }
 
     public Long getId_rating() {
         return id_rating;
+    }
+
+    public LocalDate getDateOfRating() {
+        return dateOfRating;
+    }
+
+    public void setDateOfRating(LocalDate dateOfRating) {
+        this.dateOfRating = dateOfRating;
     }
 
     public void setId_rating(Long id_rating) {

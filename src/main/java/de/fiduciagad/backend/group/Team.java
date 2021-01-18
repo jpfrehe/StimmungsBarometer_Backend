@@ -9,7 +9,6 @@ import java.util.List;
 @Entity(name = "Team")
 @Table
 public class Team {
-    @JsonIgnore
     @Id
     @SequenceGenerator(name = "team_sequence", sequenceName = "team_sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "team_sequence")

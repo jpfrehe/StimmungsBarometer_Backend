@@ -26,8 +26,8 @@ public class TeamController {
     }
 
     @PostMapping
-    public void addUser(@RequestBody Team team) {
-        teamService.addGroup(team);
+    public void addTeam(@RequestBody Team team) {
+        teamService.addTeam(team);
 
     }
 
