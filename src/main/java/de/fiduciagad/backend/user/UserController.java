@@ -1,5 +1,6 @@
 package de.fiduciagad.backend.user;
 
+import de.fiduciagad.backend.group.Team;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,14 +16,20 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping
-    public List<User> getUsers() {
-        return userService.getUsers();
+    @GetMapping(value = {"", "{userName}"})
+    public List<User> getUsers(@PathVariable(required = false) String userName) {
+        if (userName != null) {
+            return List.of(userService.getUser(userName));
+        } else {
+            return userService.getUsers();
+        }
     }
+
     @PostMapping
     public void addUser(@RequestBody User user){
         userService.addUser(user);
     }
+
 
 
 }

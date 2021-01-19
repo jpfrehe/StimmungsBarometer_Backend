@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping(path = "api/v1/group")
+@RequestMapping(path = "api/v1/team")
 public class TeamController {
     private final TeamService teamService;
 

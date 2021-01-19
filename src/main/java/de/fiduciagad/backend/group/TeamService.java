@@ -74,6 +74,7 @@ public class TeamService {
         } else {
             IntSummaryStatistics stats = ratingByDate.stream().mapToInt((x) -> x.getStimmung()).summaryStatistics();
             int coffeeCount = ratingByDate.stream().mapToInt(i -> i.getCoffeeCount()).sum();
+            System.out.println(coffeeCount);
             eval.put("maximum", Double.valueOf(stats.getMax()));
             eval.put("minimum", Double.valueOf(stats.getMin()));
             eval.put("average", stats.getAverage());
