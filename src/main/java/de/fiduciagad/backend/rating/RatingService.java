@@ -9,7 +9,7 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class RatingService {
     private final RatingRepository ratingRepository;
-    private final String teamServiceUrl = "http://localhost:8080/api/v1/team";
+    private final String teamServiceUrl = "http://localhost:8080/api/v1/group";
     private final String userServiceUrl = "http://localhost:8080/api/v1/user";
 
     @Autowired

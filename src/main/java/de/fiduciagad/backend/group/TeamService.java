@@ -43,21 +43,28 @@ public class TeamService {
         return team.get(0);
     }
 
-    public Map<String, Double> getEvaluation(String teamName) {
-        Map<String, Double> eval = new HashMap<>();
+    public Map<String, Integer> getEvaluation(String teamName) {
+        Map<String, Integer> eval = new HashMap<>();
         Team team = getTeam(teamName);
         List<Rating> ratingTeam = team.getRatings();
-        IntSummaryStatistics stats = ratingTeam.stream().mapToInt((x) -> x.getStimmung()).summaryStatistics();
-        int coffeeCount = ratingTeam.stream().mapToInt(i -> i.getCoffeeCount()).sum();
-        eval.put("maximum", Double.valueOf(stats.getMax()));
-        eval.put("minimum", Double.valueOf(stats.getMin()));
-        eval.put("average", stats.getAverage());
-        eval.put("coffeeCount", Double.valueOf(coffeeCount));
+        if (ratingTeam.isEmpty()) {
+            eval.put("maximum", 0);
+            eval.put("minimum", 0);
+            eval.put("average", 0);
+            eval.put("coffeeCount", 0);
+        } else {
+            IntSummaryStatistics stats = ratingTeam.stream().mapToInt((x) -> x.getStimmung()).summaryStatistics();
+            int coffeeCount = ratingTeam.stream().mapToInt(i -> i.getCoffeeCount()).sum();
+            eval.put("maximum", stats.getMax());
+            eval.put("minimum", stats.getMin());
+            eval.put("average", (int) stats.getAverage());
+            eval.put("coffeeCount", coffeeCount);
+        }
         return eval;
     }
 
-    public Map<String, Double> getEvaluation(String teamName, LocalDate date) {
-        Map<String, Double> eval = new HashMap<>();
+    public Map<String, Integer> getEvaluation(String teamName, LocalDate date) {
+        Map<String, Integer> eval = new HashMap<>();
         Team team = getTeam(teamName);
         List<Rating> ratingTeam = team.getRatings();
         List<Rating> ratingByDate = new ArrayList<>();
@@ -67,18 +74,17 @@ public class TeamService {
             }
         }
         if (ratingByDate.isEmpty()) {
-            eval.put("maximum", 0.);
-            eval.put("minimum", 0.);
-            eval.put("average", 0.);
-            eval.put("coffeeCount", 0.);
+            eval.put("maximum", 0);
+            eval.put("minimum", 0);
+            eval.put("average", 0);
+            eval.put("coffeeCount", 0);
         } else {
             IntSummaryStatistics stats = ratingByDate.stream().mapToInt((x) -> x.getStimmung()).summaryStatistics();
             int coffeeCount = ratingByDate.stream().mapToInt(i -> i.getCoffeeCount()).sum();
-            System.out.println(coffeeCount);
-            eval.put("maximum", Double.valueOf(stats.getMax()));
-            eval.put("minimum", Double.valueOf(stats.getMin()));
-            eval.put("average", stats.getAverage());
-            eval.put("coffeeCount", Double.valueOf(coffeeCount));
+            eval.put("maximum", stats.getMax());
+            eval.put("minimum",stats.getMin());
+            eval.put("average", (int) stats.getAverage());
+            eval.put("coffeeCount", coffeeCount);
         }
         return eval;
     }

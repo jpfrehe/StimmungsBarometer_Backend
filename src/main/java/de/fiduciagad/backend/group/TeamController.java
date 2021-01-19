@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping(path = "api/v1/team")
+@RequestMapping(path = "api/v1/group")
 @CrossOrigin(origins = "http://localhost:4200", methods = {RequestMethod.GET, RequestMethod.POST})
 public class TeamController {
     private final TeamService teamService;
@@ -36,20 +36,22 @@ public class TeamController {
         teamService.addTeam(team);
 
     }
+
     @GetMapping("/rating/{teamName}")
-    public Map<String,Double> getEvalution(@PathVariable(required = true) String teamName){
+    public @ResponseBody
+    Map<String, Integer> getEvalution(@PathVariable(required = true) String teamName) {
         return teamService.getEvaluation(teamName);
 
 
     }
+
     @GetMapping("/rating/{teamName}/{date}")
-    public Map<String,Double> getEvalutionByDate(@PathVariable(required = true) String teamName,@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date){
+    public Map<String, Integer> getEvalutionByDate(@PathVariable(required = true) String teamName, @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date) {
 
         return teamService.getEvaluation(teamName, date);
 
 
     }
-
 
 
 }
